@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>./n0shell — a qué me dedico</title>
+<meta name="description" content="n0shell — desarrollo de páginas web y venta de chips NFC (envíos a España).">
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%2300ff41%22>_</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>
+  (function () {
+    try {
+      var savedTheme = localStorage.getItem('n0shell-theme');
+      if (!savedTheme) {
+        savedTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      }
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    } catch (e) {}
+  })();
+</script>
+</head>
+<body>
+
+<div class="crt-overlay" aria-hidden="true"></div>
+
+<div class="term-window">
+
+  <!-- ============ WINDOW CHROME ============ -->
+  <header class="term-titlebar">
+    <span class="term-titlebar__path">n0shell@debian:~/a_que_me_dedico</span>
+
+    <div class="term-titlebar__controls">
+      <span class="term-titlebar__clock" id="clock">--:--:--</span>
+
+      <button type="button" id="langToggle" class="ctrl-btn" aria-label="Switch language">
+        <span data-lang-current>ES</span><span class="ctrl-sep">/</span><span data-lang-other class="dim">EN</span>
+      </button>
+
+      <button type="button" id="themeToggle" class="ctrl-btn" aria-label="Toggle light/dark mode">
+        <span class="theme-icon theme-icon--dark" aria-hidden="true">☾</span>
+        <span class="theme-icon theme-icon--light" aria-hidden="true">☀</span>
+        <span class="ctrl-btn__label" data-i18n="theme.label">modo</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ NAVEGACIÓN DEL SITIO ============ -->
+  <nav class="site-nav" aria-label="Navegación del sitio">
+    <a href="index.html">./inicio</a>
+    <a href="subweb1.html" aria-current="page">./a_que_me_dedico</a>
+    <a href="subweb2.html">./proyectos_contacto</a>
+  </nav>
+
+  <!-- ============ A QUÉ ME DEDICO ============ -->
+  <section class="term-body hero">
+    <p class="prompt-line">
+      <span class="prompt-user">user@n0shell</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span>
+      <span class="cmd" id="typedCmd"></span><span class="cursor" aria-hidden="true">_</span>
+    </p>
+
+    <p class="hero-sub" data-i18n="dedico.intro">Dos cosas en las que puedo ayudarte ahora mismo:</p>
+
+    <div class="dedico-grid">
+
+      <article class="dedico-card">
+        <p class="dedico-card__id">[WEB_DEV]</p>
+        <h2 class="dedico-card__title" data-i18n="dedico.web.title">Páginas web</h2>
+        <p class="dedico-card__desc" data-i18n="dedico.web.desc">Desarrollo webs y landings a medida: rápidas, ligeras y sin nada de sobra. Desde la idea hasta que quede publicada.</p>
+        <p class="dedico-card__note" data-i18n="dedico.web.note">¿Necesitas una web? Escríbeme.</p>
+        <a href="subweb2.html#contact" class="dedico-card__cta" data-i18n="dedico.cta">contactar &rarr;</a>
+      </article>
+
+      <article class="dedico-card">
+        <p class="dedico-card__id">[NFC_CHIPS]</p>
+        <h2 class="dedico-card__title" data-i18n="dedico.nfc.title">Chips NFC</h2>
+        <p class="dedico-card__desc" data-i18n="dedico.nfc.desc">Vendo chips NFC configurados y listos para usar: reseñas de Google, tarjetas digitales y más, con un solo toque.</p>
+        <p class="dedico-card__note dedico-card__note--flag" data-i18n="dedico.nfc.note">Envíos solo dentro de España.</p>
+        <a href="subweb2.html#contact" class="dedico-card__cta" data-i18n="dedico.cta">contactar &rarr;</a>
+      </article>
+
+    </div>
+  </section>
+
+  <footer class="term-body footer">
+    <p class="dim"><span data-i18n="footer.exit">process exited (0)</span> — n0shell.dpdns.org — <span id="year"></span></p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
