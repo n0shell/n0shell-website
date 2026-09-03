@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n0shell — links</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="crt-overlay"></div>
+
+    <div class="term-window">
+        <div class="term-titlebar">
+            <div class="term-titlebar__path">user@n0shell:~</div>
+            <div class="term-titlebar__controls">
+                <span class="term-titlebar__clock" id="clock">12:00:00</span>
+                <span class="ctrl-sep">/</span>
+                <button class="ctrl-btn" id="theme-toggle" aria-label="Cambiar tema">
+                    <span class="theme-icon theme-icon--dark">[dark]</span>
+                    <span class="theme-icon theme-icon--light">[light]</span>
+                </button>
+            </div>
+        </div>
+
+        <main class="term-body hero">
+            <div class="prompt-line">
+                <span class="prompt-user">n0shell@n0shell</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span> <span class="cmd">whoami</span>
+            </div>
+
+            <div class="hero-output">
+                <p class="hero-lead">[!] Identidad verificada: Creador de contenido / Streamer.
+                <p>Muy buenas neno, aquí tienes todos los links de mis redes listos para conectar.</p>
+            </div>
+        </main>
+
+        <section class="term-body" style="padding-top: 0;">
+            <div class="prompt-line">
+                <span class="prompt-user">n0shell@n0shell</span><span class="prompt-sep">:</span><span class="prompt-path">~/links</span><span class="prompt-dollar">$</span> <span class="cmd">ls -la ./redes</span>
+            </div>
+
+            <ul class="link-list">
+                <li>
+                    <a href="https://twitch.tv/n0shell" target="_blank" rel="noopener">
+                        <span class="link-list__key">twitch / directos</span>
+                        <span class="link-list__val">/n0shell &rarr;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://youtube.com/@n0shell-ptp" target="_blank" rel="noopener">
+                        <span class="link-list__key">youtube / videos</span>
+                        <span class="link-list__val">/@n0shell-ptp &rarr;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://instagram.com/n0.shell" target="_blank" rel="noopener">
+                        <span class="link-list__key">instagram / personal</span>
+                        <span class="link-list__val">@n0.shell &rarr;</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://discord.gg/YfqpXbG7Fx" target="_blank" rel="noopener">
+                        <span class="link-list__key">discord / comunidad</span>
+                        <span class="link-list__val">unirse &rarr;</span>
+                    </a>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="term-body footer">
+            <div class="dim">© 2026 n0shell. Todos los derechos reservados.</div>
+        </footer>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            htmlElement.setAttribute('data-theme', newTheme);
+        });
+    </script>
+</body>
+</html>
