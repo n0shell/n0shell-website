@@ -1,0 +1,529 @@
+/* ==========================================================================
+   N0SHELL TERMINAL PORTFOLIO - MAIN STYLESHEET
+   Aesthetic: Cyberpunk / Arch Linux Hacker Terminal with CRT Scanlines
+   ========================================================================== */
+
+/* --- CSS Variables & Color Palette --- */
+:root {
+    --bg-color: #080a0f;
+    --terminal-bg: rgba(12, 16, 24, 0.88);
+    --border-color: #00ff66;
+    --border-glow: rgba(0, 255, 102, 0.35);
+    --text-main: #c0c8d0;
+    --text-bright: #ffffff;
+    --accent-green: #00ff66;
+    --accent-cyan: #00e5ff;
+    --accent-purple: #bd93f9;
+    --accent-pink: #ff79c6;
+    --discord-color: #5865F2;
+    --youtube-color: #FF0000;
+    --github-color: #f0f6fc;
+    --font-mono: 'Fira Code', monospace;
+    --font-vt: 'VT323', monospace;
+}
+
+/* --- Reset & Base Styles --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-mono);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 20px;
+    background-image: 
+        radial-gradient(circle at 50% 50%, #111827 0%, #05070a 100%);
+}
+
+/* --- CRT Screen Effects (Scanlines & Vignette) --- */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 6px 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.scanline {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,255,102,0.06) 50%, rgba(255,255,255,0));
+    pointer-events: none;
+    animation: scanlineMove 8s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes scanlineMove {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(calc(100vh + 100px)); }
+}
+
+/* --- Terminal Window Container --- */
+.terminal-wrapper {
+    width: 100%;
+    max-width: 950px;
+    background: var(--terminal-bg);
+    border: 2px solid var(--accent-green);
+    border-radius: 8px;
+    box-shadow: 0 0 30px var(--border-glow), inset 0 0 20px rgba(0, 255, 102, 0.05);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    position: relative;
+    z-index: 10;
+    animation: terminalEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes terminalEntrance {
+    0% { opacity: 0; transform: scale(0.95) translateY(20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* --- Terminal Header --- */
+.terminal-header {
+    background: #0f141f;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 255, 102, 0.3);
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.terminal-buttons .btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.btn.close { background-color: #ff5f56; border: 1px solid #e0443e; }
+.btn.minimize { background-color: #ffbd2e; border: 1px solid #dea123; }
+.btn.maximize { background-color: #27c93f; border: 1px solid #1aab29; }
+
+.terminal-title {
+    color: var(--text-bright);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.terminal-title i {
+    color: var(--accent-green);
+    margin-right: 6px;
+}
+
+#live-clock {
+    font-size: 0.85rem;
+    color: var(--accent-cyan);
+}
+
+/* --- Terminal Body & Scrollbars --- */
+.terminal-body {
+    padding: 24px;
+    max-height: 75vh;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-body::-webkit-scrollbar-track {
+    background: #080a0f;
+}
+
+.terminal-body::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border: 1px solid var(--accent-green);
+    border-radius: 4px;
+}
+
+/* --- Typography & Terminal Prompts --- */
+.terminal-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.prompt {
+    color: var(--accent-green);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.command {
+    color: var(--text-bright);
+    font-weight: 600;
+}
+
+.highlight {
+    color: var(--accent-cyan);
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.output-block {
+    margin-left: 15px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    border-left: 2px dashed rgba(0, 255, 102, 0.25);
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.output-comment {
+    color: #6b7280;
+    font-style: italic;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+}
+
+.spacer {
+    height: 16px;
+}
+
+/* --- ASCII Banner --- */
+.ascii-banner pre {
+    color: var(--accent-green);
+    font-family: var(--font-mono);
+    font-size: 0.45rem;
+    line-height: 1.1;
+    overflow-x: auto;
+    text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+    margin-bottom: 12px;
+}
+
+@media (min-width: 768px) {
+    .ascii-banner pre {
+        font-size: 0.65rem;
+    }
+}
+
+.welcome-subtitle {
+    color: var(--text-bright);
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.system-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    background: rgba(0, 229, 255, 0.05);
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+
+/* --- Command Grid & Buttons --- */
+.command-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cmd-btn {
+    background: #111827;
+    border: 1px solid rgba(0, 255, 102, 0.4);
+    color: var(--text-main);
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cmd-btn i {
+    color: var(--accent-green);
+}
+
+.cmd-btn:hover {
+    background: rgba(0, 255, 102, 0.15);
+    color: var(--text-bright);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 10px rgba(0, 255, 102, 0.3);
+    transform: translateY(-2px);
+}
+
+/* --- Bio Section --- */
+.bio-text {
+    line-height: 1.6;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+.bio-text strong {
+    color: var(--accent-cyan);
+}
+
+/* --- Projects Section --- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.project-card {
+    background: #0f141f;
+    border: 1px solid #1f2937;
+    border-radius: 6px;
+    padding: 16px;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.project-card:hover {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+    transform: translateY(-3px);
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.project-header i {
+    color: var(--accent-cyan);
+    font-size: 1.1rem;
+}
+
+.project-header h3 {
+    color: var(--text-bright);
+    font-size: 1.05rem;
+}
+
+.project-desc {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.project-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #1f2937;
+    padding-top: 10px;
+}
+
+.tech-tag {
+    font-size: 0.75rem;
+    background: rgba(189, 147, 249, 0.1);
+    color: var(--accent-purple);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(189, 147, 249, 0.2);
+}
+
+.repo-link {
+    font-size: 0.8rem;
+    color: var(--accent-green);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.2s;
+}
+
+.repo-link:hover {
+    color: var(--text-bright);
+    text-decoration: underline;
+}
+
+/* --- Skills / Neofetch Section --- */
+.skills-block {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.skill-category {
+    background: #0f141f;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #1f2937;
+}
+
+.skill-title {
+    color: var(--accent-purple);
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+}
+
+.skill-item span {
+    color: var(--text-bright);
+}
+
+.bar {
+    width: 100%;
+    height: 6px;
+    background: #1f2937;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+    border-radius: 3px;
+    transition: width 1s ease-in-out;
+}
+
+/* --- Socials Section --- */
+.socials-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.social-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0f141f;
+    border: 1px solid #1f2937;
+    padding: 14px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-card i {
+    font-size: 1.6rem;
+}
+
+.social-card.discord i { color: var(--discord-color); }
+.social-card.youtube i { color: var(--youtube-color); }
+.social-card.github i { color: var(--github-color); }
+
+.social-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 16px;
+}
+
+.social-info strong {
+    color: var(--text-bright);
+    font-size: 0.95rem;
+}
+
+.social-info span {
+    color: #6b7280;
+    font-size: 0.8rem;
+}
+
+.action-hint {
+    font-size: 0.85rem;
+    color: var(--accent-green);
+    font-weight: 700;
+    opacity: 0.8;
+    transition: transform 0.2s;
+}
+
+.social-card:hover {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 15px rgba(0, 255, 102, 0.25);
+    transform: translateX(4px);
+}
+
+.social-card:hover .action-hint {
+    transform: translateX(4px);
+    opacity: 1;
+}
+
+/* --- Interactive Command Input Line --- */
+.interactive-prompt-line {
+    background: rgba(15, 20, 31, 0.6);
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 255, 102, 0.3);
+    margin-top: 20px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    position: relative;
+}
+
+#terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-bright);
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    width: 100%;
+}
+
+.cursor-block {
+    color: var(--accent-green);
+    animation: blink 1s infinite;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* --- Animations --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 640px) {
+    body { padding: 10px; }
+    .terminal-body { padding: 14px; }
+    .command-grid { grid-template-columns: 1fr; }
+}

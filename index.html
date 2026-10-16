@@ -1,98 +1,218 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>n0shell — links</title>
-    <!-- Etiqueta de verificación de Google Search Console -->
-    <meta name="google-site-verification" content="P7eEjOVMNGrU76vAOKJTktsSVt3QAaUIaP2C-1ghXu8" />
-    <link rel="stylesheet" href="styles.css">
+    <title>n0shell ~ Terminal Portfolio</title>
+    <!-- Google Fonts: Fira Code & VT323 for terminal vibes -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=VT323&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Terminal CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- CRT Scanlines & Vignette Overlay -->
     <div class="crt-overlay"></div>
+    <div class="scanline"></div>
 
-    <div class="term-window">
-        <div class="term-titlebar">
-            <div class="term-titlebar__path">user@n0shell:~</div>
-            <div class="term-titlebar__controls">
-                <span class="term-titlebar__clock" id="clock">12:00:00</span>
-                <span class="ctrl-sep">/</span>
-                <button class="ctrl-btn" id="theme-toggle" aria-label="Cambiar tema">
-                    <span class="theme-icon theme-icon--dark">[dark]</span>
-                    <span class="theme-icon theme-icon--light">[light]</span>
-                </button>
+    <!-- Main Terminal Container -->
+    <div class="terminal-wrapper">
+        <!-- Terminal Window Header -->
+        <div class="terminal-header">
+            <div class="terminal-buttons">
+                <span class="btn close"></span>
+                <span class="btn minimize"></span>
+                <span class="btn maximize"></span>
+            </div>
+            <div class="terminal-title">
+                <i class="fa-solid fa-terminal"></i> n0shell@arch-linux: ~
+            </div>
+            <div class="terminal-controls-right">
+                <span id="live-clock">00:00:00</span>
             </div>
         </div>
 
-        <main class="term-body hero">
-            <div class="prompt-line">
-                <span class="prompt-user">n0shell@n0shell</span><span class="prompt-sep">:</span><span class="prompt-path">~</span><span class="prompt-dollar">$</span> <span class="cmd">whoami</span>
+        <!-- Terminal Body / Content Area -->
+        <div class="terminal-body" id="terminal-body">
+            
+            <!-- Welcome Banner -->
+            <div class="ascii-banner animate-fade-in">
+<pre>
+███╗   ██╗ ██████╗ ███████╗██╗  ██╗███████╗██╗     ██╗     
+████╗  ██║██╔═████╗██╔════╝██║  ██║██╔════╝██║     ██║     
+██╔██╗ ██║██║██╔██║███████╗███████║█████╗  ██║     ██║     
+██║╚██╗██║████╔╝██║╚════██║██╔══██║██╔══╝  ██║     ██║     
+██║ ╚████║╚██████╔╝███████║██║  ██║███████╗███████╗███████╗
+╚═╝  ╚═══╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝
+</pre>
+                <p class="welcome-subtitle">SYSTEM INITIALIZED // USER: <span class="highlight">n0shell</span> // WIN11 & ARCH LINUX ENVIRONMENT</p>
+                <div class="system-stats">
+                    <span>[HOST]: n0shell-desktop</span>
+                    <span>[SYS]: Windows 11 / Arch Linux</span>
+                    <span>[SHELL]: zsh / bash</span>
+                </div>
             </div>
 
-            <div class="hero-output">
-                <p class="hero-lead">[!] Identidad verificada: Creador de contenido / Streamer.</p>
-                <p>Muy buenas neno, aquí tienes todos los links de mis redes listos para conectar.</p>
+            <div class="spacer"></div>
+
+            <!-- Help / Command Guide -->
+            <div class="terminal-line">
+                <span class="prompt">n0shell@arch ~ %</span> <span class="command">help</span>
             </div>
-        </main>
-
-        <section class="term-body" style="padding-top: 0;">
-            <div class="prompt-line">
-                <span class="prompt-user">n0shell@n0shell</span><span class="prompt-sep">:</span><span class="prompt-path">~/links</span><span class="prompt-dollar">$</span> <span class="cmd">ls -la ./redes</span>
+            <div class="output-block animate-slide-up">
+                <p>Available commands (click or type):</p>
+                <div class="command-grid">
+                    <button class="cmd-btn" data-cmd="bio"><i class="fa-solid fa-user"></i> cat bio.txt</button>
+                    <button class="cmd-btn" data-cmd="projects"><i class="fa-solid fa-code"></i> ls ./projects</button>
+                    <button class="cmd-btn" data-cmd="skills"><i class="fa-solid fa-microchip"></i> neofetch --skills</button>
+                    <button class="cmd-btn" data-cmd="socials"><i class="fa-solid fa-share-nodes"></i> cat socials.cfg</button>
+                    <button class="cmd-btn" data-cmd="clear"><i class="fa-solid fa-eraser"></i> clear</button>
+                </div>
             </div>
 
-            <ul class="link-list">
-                <li>
-                    <a href="https://twitch.tv/n0shell" target="_blank" rel="noopener">
-                        <span class="link-list__key">twitch / directos</span>
-                        <span class="link-list__val">/n0shell &rarr;</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://youtube.com/@n0shell-ptp" target="_blank" rel="noopener">
-                        <span class="link-list__key">youtube / videos</span>
-                        <span class="link-list__val">/@n0shell-ptp &rarr;</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://instagram.com/n0.shell" target="_blank" rel="noopener">
-                        <span class="link-list__key">instagram / personal</span>
-                        <span class="link-list__val">@n0.shell &rarr;</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://discord.gg/YfqpXbG7Fx" target="_blank" rel="noopener">
-                        <span class="link-list__key">discord / comunidad</span>
-                        <span class="link-list__val">unirse &rarr;</span>
-                    </a>
-                </li>
-            </ul>
-        </section>
+            <div class="spacer"></div>
 
-        <footer class="term-body footer">
-            <div class="dim">© 2026 n0shell. Todos los derechos reservados.</div>
-        </footer>
-    </div>
+            <!-- Section: Bio -->
+            <section id="section-bio" class="terminal-section">
+                <div class="terminal-line">
+                    <span class="prompt">n0shell@arch ~ %</span> <span class="command">cat bio.txt</span>
+                </div>
+                <div class="output-block">
+                    <p class="bio-text">
+                        &gt; Hola, soy <strong>n0shell</strong>. Desarrollador y entusiasta del software minimalista, sistemas Linux y aplicaciones web offline-first. Aunque mi equipo principal corre con Windows 11, me encanta usar y configurar Arch Linux para programar y realizar todo tipo de proyectos técnicos.
+                    </p>
+                </div>
+            </section>
 
-    <script>
-        function updateClock() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+            <div class="spacer"></div>
 
-        const themeToggle = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
+            <!-- Section: Projects -->
+            <section id="section-projects" class="terminal-section">
+                <div class="terminal-line">
+                    <span class="prompt">n0shell@arch ~ %</span> <span class="command">ls -la ./projects</span>
+                </div>
+                <div class="output-block">
+                    <p class="output-comment"># Mostrando repositorios destacados (filtrados excluyendo n0teams, n0shell-websiteA y n0shell Public)</p>
+                    <div class="projects-grid">
+                        
+                        <!-- Project 1 -->
+                        <div class="project-card">
+                            <div class="project-header">
+                                <i class="fa-solid fa-folder-open"></i>
+                                <h3>n0gym</h3>
+                            </div>
+                            <p class="project-desc">Aplicación web de seguimiento de entrenamiento offline-first construida con Vanilla JavaScript, CSS3 e IndexedDB, empaquetada como APK con Capacitor.</p>
+                            <div class="project-footer">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">IndexedDB</span>
+                                <a href="https://github.com/n0shell/n0gym" target="_blank" class="repo-link"><i class="fa-brands fa-github"></i> Ver Repo</a>
+                            </div>
+                        </div>
 
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            htmlElement.setAttribute('data-theme', newTheme);
-        });
-    </script>
+                        <!-- Project 2 -->
+                        <div class="project-card">
+                            <div class="project-header">
+                                <i class="fa-solid fa-folder-open"></i>
+                                <h3>Terminal Landing & Dotfiles</h3>
+                            </div>
+                            <p class="project-desc">Colección de configuraciones de entorno, dotfiles de Arch Linux, temas personalizados de GRUB y landing pages minimalistas.</p>
+                            <div class="project-footer">
+                                <span class="tech-tag">Arch Linux</span>
+                                <span class="tech-tag">CSS3</span>
+                                <a href="https://github.com/n0shell" target="_blank" class="repo-link"><i class="fa-brands fa-github"></i> GitHub</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+            <!-- Section: Skills -->
+            <section id="section-skills" class="terminal-section">
+                <div class="terminal-line">
+                    <span class="prompt">n0shell@arch ~ %</span> <span class="command">neofetch --skills</span>
+                </div>
+                <div class="output-block skills-block">
+                    <div class="skill-category">
+                        <span class="skill-title">[ LANGUAGES & CORE ]:</span>
+                        <div class="skill-bars">
+                            <div class="skill-item"><span>HTML5 / CSS3</span><div class="bar"><div class="fill" style="width: 95%;"></div></div></div>
+                            <div class="skill-item"><span>JavaScript (ES6+)</span><div class="bar"><div class="fill" style="width: 90%;"></div></div></div>
+                            <div class="skill-item"><span>Node.js</span><div class="bar"><div class="fill" style="width: 80%;"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <span class="skill-title">[ SYSTEMS & ENVIRONMENTS ]:</span>
+                        <div class="skill-bars">
+                            <div class="skill-item"><span>Windows 11 (Main OS)</span><div class="bar"><div class="fill" style="width: 90%;"></div></div></div>
+                            <div class="skill-item"><span>Arch Linux (Dev & Tools)</span><div class="bar"><div class="fill" style="width: 95%;"></div></div></div>
+                            <div class="skill-item"><span>Git & GitHub</span><div class="bar"><div class="fill" style="width: 85%;"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+            <!-- Section: Socials / Redes -->
+            <section id="section-socials" class="terminal-section">
+                <div class="terminal-line">
+                    <span class="prompt">n0shell@arch ~ %</span> <span class="command">cat socials.cfg</span>
+                </div>
+                <div class="output-block">
+                    <div class="socials-container">
+                        <!-- Discord -->
+                        <a href="https://discord.gg/rECDwZdgbp" target="_blank" class="social-card discord">
+                            <i class="fa-brands fa-discord"></i>
+                            <div class="social-info">
+                                <strong>Discord Server</strong>
+                                <span>discord.gg/rECDwZdgbp</span>
+                            </div>
+                            <span class="action-hint">CONNECT &gt;</span>
+                        </a>
+
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/@n0shell-ptp" target="_blank" class="social-card youtube">
+                            <i class="fa-brands fa-youtube"></i>
+                            <div class="social-info">
+                                <strong>YouTube Channel</strong>
+                                <span>@n0shell-ptp</span>
+                            </div>
+                            <span class="action-hint">SUBSCRIBE &gt;</span>
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="https://github.com/n0shell" target="_blank" class="social-card github">
+                            <i class="fa-brands fa-github"></i>
+                            <div class="social-info">
+                                <strong>GitHub Profile</strong>
+                                <span>github.com/n0shell</span>
+                            </div>
+                            <span class="action-hint">EXPLORE &gt;</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <div class="spacer"></div>
+
+            <!-- Interactive CLI Prompt Form -->
+            <div class="terminal-line interactive-prompt-line">
+                <span class="prompt" id="current-prompt">n0shell@arch ~ %</span> 
+                <div class="input-wrapper">
+                    <input type="text" id="terminal-input" placeholder="escribe un comando (ej: help, bio, socials, clear)..." autocomplete="off" spellcheck="false">
+                    <span class="cursor-block">█</span>
+                </div>
+            </div>
+
+        </div> <!-- End Terminal Body -->
+    </div> <!-- End Terminal Wrapper -->
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
