@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- SEO básico -->
+  <title>./n0shell — En construcción</title>
+  <meta name="description" content="Un nuevo espacio está tomando forma. Pronto habrá novedades en n0shell.es.">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="n0shell">
+  <link rel="canonical" href="https://n0shell.es/">
+  <meta name="theme-color" content="#08080c">
+  <meta name="color-scheme" content="dark">
+
+  <!-- Open Graph (vista previa al compartir el enlace) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:url" content="https://n0shell.es/">
+  <meta property="og:title" content="./n0shell — En construcción">
+  <meta property="og:description" content="Un nuevo espacio está tomando forma. Pronto habrá novedades.">
+  <meta name="twitter:card" content="summary">
+
+  <!-- Favicon inline (sin archivos externos) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2308080c'/%3E%3Cpath d='M18 20l16 12-16 12' fill='none' stroke='%23a875ff' stroke-width='6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M38 46h10' stroke='%23a875ff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <style>
+    /* ---------- Variables de diseño ---------- */
+    :root {
+      --bg: #08080c;
+      --accent: #a875ff;
+      --text: #ece9f5;
+      --muted: #8d8a9c;
+      --faint: #5c596b;
+      --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, "Liberation Mono", monospace;
+      --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { height: 100%; background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-height: 100%;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ---------- Iluminación ambiental (muy sutil) ---------- */
+    body::before {
+      content: "";
+      position: fixed;
+      left: 50%;
+      top: 42%;
+      width: min(900px, 140vw);
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(168, 117, 255, .13) 0%, rgba(168, 117, 255, .04) 38%, transparent 68%);
+      pointer-events: none;
+      animation: breathe 9s ease-in-out infinite;
+    }
+
+    /* ---------- Layout principal ---------- */
+    main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: clamp(2rem, 6vw, 4rem) 1.5rem;
+      padding-top: max(clamp(2rem, 6vw, 4rem), env(safe-area-inset-top));
+    }
+
+    /* Logotipo */
+    .logo {
+      margin: 0 0 clamp(2.5rem, 7vh, 4rem);
+      font-family: var(--mono);
+      font-size: clamp(1.35rem, 3.5vw, 1.6rem);
+      font-weight: 600;
+      letter-spacing: -.01em;
+      color: var(--text);
+    }
+    .logo span { color: var(--accent); }
+
+    /* Indicador de estado */
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin: 0 0 1.75rem;
+      padding: .4rem .9rem;
+      border: 1px solid rgba(168, 117, 255, .28);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: .72rem;
+      letter-spacing: .14em;
+      color: var(--accent);
+    }
+    .status i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 0 rgba(168, 117, 255, .55);
+      animation: pulse 2.4s ease-out infinite;
+    }
+
+    /* Título y texto */
+    h1 {
+      margin: 0 0 1.25rem;
+      max-width: 14ch;
+      font-size: clamp(2.4rem, 7.5vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -.035em;
+      text-wrap: balance;
+    }
+
+    .lead {
+      margin: 0;
+      max-width: 36ch;
+      font-size: clamp(1rem, 2.4vw, 1.15rem);
+      color: var(--muted);
+      text-wrap: balance;
+    }
+
+    /* Indicador de carga: línea fina con un tramo que se desplaza */
+    .loader {
+      position: relative;
+      width: 140px;
+      height: 2px;
+      margin-top: clamp(2.5rem, 7vh, 4rem);
+      overflow: hidden;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, .07);
+    }
+    .loader::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 40%;
+      border-radius: inherit;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(168, 117, 255, .8);
+      animation: slide 1.9s cubic-bezier(.65, 0, .35, 1) infinite;
+    }
+
+    /* Texto solo para lectores de pantalla */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Pie de página */
+    footer {
+      position: relative;
+      padding: 1.5rem 1.5rem;
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+      text-align: center;
+      font-size: .78rem;
+      color: var(--faint);
+    }
+
+    /* ---------- Animación de entrada (una sola, al cargar) ---------- */
+    main > * { animation: enter .9s cubic-bezier(.2, .7, .2, 1) both; }
+    main > :nth-child(2) { animation-delay: .08s; }
+    main > :nth-child(3) { animation-delay: .16s; }
+    main > :nth-child(4) { animation-delay: .24s; }
+    main > :nth-child(5) { animation-delay: .4s; }
+
+    @keyframes enter {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes breathe {
+      0%, 100% { opacity: .75; }
+      50%      { opacity: 1; }
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(168, 117, 255, .55); }
+      70%  { box-shadow: 0 0 0 8px rgba(168, 117, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(168, 117, 255, 0); }
+    }
+    @keyframes slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(250%); }
+    }
+
+    /* Respeta la preferencia de movimiento reducido */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; }
+      .loader::after { width: 100%; opacity: .5; }
+    }
+  </style>
+</head>
+<body>
+
+  <main>
+    <p class="logo" aria-label="n0shell">./n<span>0</span>shell</p>
+
+    <p class="status"><i aria-hidden="true"></i>EN CONSTRUCCIÓN</p>
+
+    <h1>Estamos construyendo algo nuevo.</h1>
+
+    <p class="lead">Un nuevo espacio está tomando forma. Pronto habrá novedades.</p>
+
+    <div class="loader" role="progressbar" aria-label="Cargando">
+      <span class="sr-only">Cargando contenido nuevo</span>
+    </div>
+  </main>
+
+  <footer>
+    <small>© 2026 ./n0shell — Siempre aprendiendo, siempre expandiéndome.</small>
+  </footer>
+
+</body>
+</html>
